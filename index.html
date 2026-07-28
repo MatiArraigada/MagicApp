@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAGIC - Control Inteligente de Mantenimiento Industrial</title>
-  <meta name="description" content="Plataforma premium para la gestión de mantenimiento preventivo y correctivo de maquinaria industrial.">
+  <meta name="description"
+    content="Plataforma premium para la gestión de mantenimiento preventivo y correctivo de maquinaria industrial.">
   <link rel="stylesheet" href="style.css">
   <!-- QR Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -13,39 +15,55 @@
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
 </head>
+
 <body>
 
   <!-- Sidebar Navigation -->
   <aside class="sidebar">
     <div class="logo-container">
-      <img src="images/logo.png" alt="MAGIC Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <img src="images/logo.png" alt="MAGIC Logo" class="logo-img"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="logo-icon" style="display:none;">MG</div>
       <span class="logo-text">MAGIC</span>
     </div>
-    
+
     <nav>
       <ul class="nav-links">
         <li>
           <a href="#" class="nav-item active" data-tab="dashboard" id="nav-dashboard">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+            </svg>
             Dashboard
           </a>
         </li>
         <li>
           <a href="#" class="nav-item" data-tab="machines" id="nav-machines">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
             Maquinaria
           </a>
         </li>
         <li>
           <a href="#" class="nav-item" data-tab="orders" id="nav-orders">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
             Órdenes
           </a>
         </li>
       </ul>
     </nav>
-    
+
     <div class="sidebar-footer">
       <button class="theme-toggle-btn" id="theme-toggle">
         <span>🌙 Modo Oscuro</span>
@@ -55,7 +73,7 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    
+
     <!-- Top Header -->
     <header class="header-panel">
       <div class="header-title-container">
@@ -64,7 +82,13 @@
       </div>
       <div class="header-actions">
         <button class="btn btn-scan" id="btn-scan-qr" title="Escanear QR de máquina">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" />
+          </svg>
           <span>Escanear QR</span>
         </button>
         <button class="btn btn-secondary" id="btn-new-machine">
@@ -90,7 +114,8 @@
           </div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-icon-wrapper" style="background-color: var(--status-warning-bg); color: var(--status-warning)">
+          <div class="kpi-icon-wrapper"
+            style="background-color: var(--status-warning-bg); color: var(--status-warning)">
             🔧
           </div>
           <div class="kpi-data">
@@ -123,13 +148,15 @@
         <!-- Status Analytics Chart (SVG Ring) -->
         <div class="content-block">
           <div class="block-header">
-            <h2 class="block-title">Salud de la Planta</h2>
+            <h2 class="block-title">Salud de las Salas</h2>
           </div>
           <div class="status-chart-container">
             <div class="progress-ring-wrapper">
               <svg width="140" height="140">
-                <circle class="progress-ring-background" stroke="var(--border-color)" stroke-width="12" fill="transparent" r="54" cx="70" cy="70"/>
-                <circle class="progress-ring-circle" stroke="var(--status-ok)" stroke-width="12" fill="transparent" r="54" cx="70" cy="70" stroke-linecap="round"/>
+                <circle class="progress-ring-background" stroke="var(--border-color)" stroke-width="12"
+                  fill="transparent" r="54" cx="70" cy="70" />
+                <circle class="progress-ring-circle" stroke="var(--status-ok)" stroke-width="12" fill="transparent"
+                  r="54" cx="70" cy="70" stroke-linecap="round" />
               </svg>
               <div class="progress-ring-text" id="pct-operative">
                 0%
@@ -151,8 +178,9 @@
               </div>
             </div>
           </div>
-          
-          <div class="block-header" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+
+          <div class="block-header"
+            style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
             <h2 class="block-title">Alertas Críticas de Operación</h2>
           </div>
           <div class="list-container" id="critical-alerts-container">
@@ -176,8 +204,13 @@
     <section class="tab-panel" id="machines-tab">
       <div class="filter-bar">
         <div class="search-input-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" placeholder="Buscar máquina por nombre, ID o ubicación..." class="search-input" id="machine-search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Buscar máquina por nombre, ID o ubicación..." class="search-input"
+            id="machine-search">
         </div>
         <div class="filter-selects">
           <select class="filter-select" id="machine-status-filter">
@@ -215,8 +248,13 @@
     <section class="tab-panel" id="orders-tab">
       <div class="filter-bar">
         <div class="search-input-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" placeholder="Buscar orden por título, máquina o ID..." class="search-input" id="order-search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Buscar orden por título, máquina o ID..." class="search-input"
+            id="order-search">
         </div>
         <div class="filter-selects">
           <select class="filter-select" id="order-status-filter">
@@ -242,13 +280,16 @@
 
   <!-- SHARED MODAL SYSTEM OVERLAY -->
   <div class="modal-overlay" id="modal-overlay">
-    
+
     <!-- Modal Content: Add/Edit Machine -->
     <div class="modal-content modal-content-wrapper" id="machine-modal-content" style="display: none;">
       <div class="modal-header">
         <h3 class="modal-title" id="machine-modal-title">Registrar Nueva Máquina</h3>
         <button class="modal-close-btn" aria-label="Cerrar modal">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       <form id="machine-form">
@@ -312,7 +353,9 @@
               <label class="form-label" for="machine-last-maint">Último Mantenimiento</label>
               <input type="date" id="machine-last-maint" class="form-input">
             </div>
-            <button type="button" class="btn btn-danger" id="machine-delete-btn" style="display:none; width:100%; margin-top:1rem; justify-content:center;" onclick="confirmDeleteMachine()">
+            <button type="button" class="btn btn-danger" id="machine-delete-btn"
+              style="display:none; width:100%; margin-top:1rem; justify-content:center;"
+              onclick="confirmDeleteMachine()">
               🗑️ Eliminar Máquina
             </button>
           </div>
@@ -320,9 +363,11 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-cancel">Cancelar</button>
           <div class="step-actions">
-            <button type="button" class="btn btn-secondary step-prev" id="machine-prev-btn" style="display:none;">← Anterior</button>
+            <button type="button" class="btn btn-secondary step-prev" id="machine-prev-btn" style="display:none;">←
+              Anterior</button>
             <button type="button" class="btn btn-primary step-next" id="machine-next-btn">Siguiente →</button>
-            <button type="submit" class="btn btn-primary step-submit" id="machine-submit-btn" style="display:none;">Guardar Ficha</button>
+            <button type="submit" class="btn btn-primary step-submit" id="machine-submit-btn"
+              style="display:none;">Guardar Ficha</button>
           </div>
         </div>
       </form>
@@ -333,7 +378,10 @@
       <div class="modal-header">
         <h3 class="modal-title">Crear Orden de Trabajo</h3>
         <button class="modal-close-btn" aria-label="Cerrar modal">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       <form id="order-form">
@@ -356,7 +404,8 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="order-title-input">Título de la Tarea</label>
-              <input type="text" id="order-title-input" class="form-input" placeholder="Ej. Cambio de Filtro de Aire" required>
+              <input type="text" id="order-title-input" class="form-input" placeholder="Ej. Cambio de Filtro de Aire"
+                required>
             </div>
           </div>
 
@@ -364,7 +413,9 @@
           <div class="form-step" id="order-step-2">
             <div class="form-group">
               <label class="form-label" for="order-desc-input">Descripción Detallada del Trabajo</label>
-              <textarea id="order-desc-input" class="form-textarea" placeholder="Describa los síntomas observados o las instrucciones de rutina preventiva..." required></textarea>
+              <textarea id="order-desc-input" class="form-textarea"
+                placeholder="Describa los síntomas observados o las instrucciones de rutina preventiva..."
+                required></textarea>
             </div>
           </div>
 
@@ -390,9 +441,11 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-cancel">Cancelar</button>
           <div class="step-actions">
-            <button type="button" class="btn btn-secondary step-prev" id="order-prev-btn" style="display:none;">← Anterior</button>
+            <button type="button" class="btn btn-secondary step-prev" id="order-prev-btn" style="display:none;">←
+              Anterior</button>
             <button type="button" class="btn btn-primary step-next" id="order-next-btn">Siguiente →</button>
-            <button type="submit" class="btn btn-primary step-submit" id="order-submit-btn" style="display:none;">Crear Orden</button>
+            <button type="submit" class="btn btn-primary step-submit" id="order-submit-btn" style="display:none;">Crear
+              Orden</button>
           </div>
         </div>
       </form>
@@ -403,7 +456,10 @@
       <div class="modal-header">
         <h3 class="modal-title">Finalizar Orden de Trabajo</h3>
         <button class="modal-close-btn" aria-label="Cerrar modal">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       <form id="complete-form">
@@ -411,12 +467,15 @@
           <h4 id="complete-order-title" style="margin-bottom: 1rem; color: var(--accent);"></h4>
           <div class="form-group">
             <label class="form-label" for="complete-notes">Notas del Técnico / Solución aplicada</label>
-            <textarea id="complete-notes" class="form-textarea" placeholder="Describa el trabajo realizado, repuestos cambiados y observaciones finales..." required></textarea>
+            <textarea id="complete-notes" class="form-textarea"
+              placeholder="Describa el trabajo realizado, repuestos cambiados y observaciones finales..."
+              required></textarea>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-cancel">Cancelar</button>
-          <button type="submit" class="btn btn-primary" style="background: var(--status-ok);">Finalizar y Guardar</button>
+          <button type="submit" class="btn btn-primary" style="background: var(--status-ok);">Finalizar y
+            Guardar</button>
         </div>
       </form>
     </div>
@@ -429,7 +488,10 @@
       <div class="modal-header">
         <h3 class="modal-title" id="qr-modal-title">Código QR de Máquina</h3>
         <button class="modal-close-btn" id="qr-modal-close" aria-label="Cerrar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <div class="modal-body qr-modal-body">
@@ -449,11 +511,21 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" id="qr-modal-close-btn">Cerrar</button>
         <button class="btn btn-secondary" id="qr-print-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
           Imprimir
         </button>
         <button class="btn btn-primary" id="qr-download-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
           Descargar PNG
         </button>
       </div>
@@ -466,7 +538,10 @@
       <div class="modal-header">
         <h3 class="modal-title">Panel de Máquina</h3>
         <button class="modal-close-btn" id="scan-result-close" aria-label="Cerrar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <div class="modal-body" id="scan-result-body">
@@ -484,7 +559,10 @@
       <div class="modal-header">
         <h3 class="modal-title">📷 Escanear / Buscar Máquina</h3>
         <button class="modal-close-btn" id="scanner-close-btn" aria-label="Cerrar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <div class="modal-body">
@@ -497,7 +575,8 @@
               placeholder="Ej: M001, M002..." autocomplete="off" autocapitalize="characters">
             <button class="btn btn-primary scanner-manual-btn" id="scanner-manual-btn">Buscar</button>
           </div>
-          <p class="scanner-manual-hint">También podés ingresar el ID directamente para acceder al panel de la máquina.</p>
+          <p class="scanner-manual-hint">También podés ingresar el ID directamente para acceder al panel de la máquina.
+          </p>
         </div>
 
         <!-- Divider -->
@@ -509,7 +588,8 @@
             <span class="scanner-warning-icon">⚠️</span>
             <div>
               <strong>Cámara no disponible</strong>
-              <p>El navegador requiere HTTPS para acceder a la cámara. Usá el ID manual arriba, o abrí la app con HTTPS.</p>
+              <p>El navegador requiere HTTPS para acceder a la cámara. Usá el ID manual arriba, o abrí la app con HTTPS.
+              </p>
             </div>
           </div>
           <div id="scanner-camera-content" style="display:none;">
@@ -526,7 +606,13 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" id="scanner-cancel-btn">Cancelar</button>
         <button class="btn btn-scan" id="scanner-camera-btn" style="display:none;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" />
+          </svg>
           Activar Cámara
         </button>
       </div>
@@ -536,4 +622,5 @@
   </div>
 
 </body>
+
 </html>

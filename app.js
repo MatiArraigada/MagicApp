@@ -664,6 +664,7 @@ function renderMachines() {
             QR
           </button>
           <button class="btn btn-primary" onclick="generateQuickOrder('${m.id}')">Programar Manto</button>
+          <button class="btn ${m.status === 'parada' ? 'btn-success' : 'btn-danger'}" onclick="toggleMachineStopped('${m.id}')">${m.status === 'parada' ? 'Reactivar' : 'Marcar Parada'}</button>
         </div>
       </div>
     `;
@@ -787,6 +788,22 @@ function confirmDeleteMachine() {
       renderAll();
     }
   }
+}
+
+function toggleMachineStopped(machineId) {
+  const idx = state.machines.findIndex(m => m.id === machineId);
+  if (idx === -1) return;
+  const m = state.machines[idx];
+  if (m.status === 'parada') {
+    m.status = 'operativa';
+    addActivityLog(`Se reactivó la máquina ${m.name} (${m.id})`, 'success');
+  } else {
+    m.status = 'parada';
+    addActivityLog(`Se marcó como parada la máquina ${m.name} (${m.id})`, 'danger');
+  }
+  saveToLocalStorage();
+  renderAll();
+  updateRecentActivity();
 }
 
 function handleMachineFormSubmit(e) {
