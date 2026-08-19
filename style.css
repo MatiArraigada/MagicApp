@@ -648,6 +648,13 @@ body {
   border-color: var(--border-focus);
 }
 
+.import-export-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: auto;
+}
+
 /* Machine Grid Layout */
 .machine-grid {
   display: grid;
@@ -1357,6 +1364,12 @@ body {
     min-width: 0;
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
+  }
+
+  .import-export-group {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   /* Modals */

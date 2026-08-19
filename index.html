@@ -11,6 +11,8 @@
   <!-- QR Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <!-- Excel Library (SheetJS) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <!-- Scripts cargados en orden -->
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
@@ -237,6 +239,25 @@
             <option value="Nuñez">Nuñez</option>
             <option value="La Falda">La Falda</option>
           </select>
+        </div>
+        <div class="import-export-group">
+          <button class="btn btn-secondary" id="btn-export-excel">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Exportar</span>
+          </button>
+          <button class="btn btn-primary" id="btn-import-excel">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <span>Importar</span>
+          </button>
+          <input type="file" id="import-file-input" accept=".xlsx,.xls" style="display:none">
         </div>
       </div>
       <div class="machine-grid" id="machines-grid">

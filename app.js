@@ -298,6 +298,22 @@ function setupEventListeners() {
     scannerCameraBtn.addEventListener('click', startCameraScanner);
   }
 
+  // Excel Import/Export Buttons
+  const btnExportExcel = document.getElementById('btn-export-excel');
+  if (btnExportExcel) {
+    btnExportExcel.addEventListener('click', exportMachinesExcel);
+  }
+  const btnImportExcel = document.getElementById('btn-import-excel');
+  if (btnImportExcel) {
+    btnImportExcel.addEventListener('click', () => {
+      document.getElementById('import-file-input').click();
+    });
+  }
+  const importFileInput = document.getElementById('import-file-input');
+  if (importFileInput) {
+    importFileInput.addEventListener('change', handleFileImport);
+  }
+
   // Close overlays on backdrop click
   document.getElementById('qr-view-overlay').addEventListener('click', (e) => {
     if (e.target === document.getElementById('qr-view-overlay')) closeQRViewModal();
@@ -1013,6 +1029,132 @@ function updateRecentActivity() {
 
 // Start Application on Load
 window.addEventListener('DOMContentLoaded', init);
+
+// =============================================
+// EXCEL IMPORT/EXPORT FUNCTIONALITY
+// =============================================
+
+function exportMachinesExcel() {
+  if (state.machines.length === 0) {
+    showScanToast('No hay máquinas para exportar.', 'warning');
+    return;
+  }
+
+  const rows = state.machines.map(m => ({
+    'ID': m.id,
+    'Nombre': m.name,
+    'Ubicación': m.location,
+    'Estado': m.status,
+    'Último Mantenimiento': m.lastMaintenance
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Máquinas');
+
+  ws['!cols'] = [
+    { wch: 10 },
+    { wch: 35 },
+    { wch: 25 },
+    { wch: 15 },
+    { wch: 20 }
+  ];
+
+  const today = new Date().toISOString().split('T')[0];
+  XLSX.writeFile(wb, `maquinas MAGIC-${today}.xlsx`);
+
+  addActivityLog(`Se exportaron ${state.machines.length} máquinas a Excel`, 'success');
+  showScanToast(`Exportadas ${state.machines.length} máquinas.`, 'success');
+}
+
+function importMachinesExcel(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const wb = XLSX.read(data, { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws);
+
+      if (rows.length === 0) {
+        showScanToast('El archivo no contiene datos.', 'warning');
+        return;
+      }
+
+      let added = 0;
+      let updated = 0;
+      const imagesList = [
+        'images/injection_molder.png',
+        'images/cnc_milling.png',
+        'images/robotic_arm.png',
+        'images/hydraulic_press.png'
+      ];
+
+      rows.forEach(row => {
+        const id = (row['ID'] || '').toString().trim().toUpperCase();
+        if (!id) return;
+
+        const name = (row['Nombre'] || row['name'] || '').toString().trim();
+        const location = (row['Ubicación'] || row['location'] || '').toString().trim();
+        const statusRaw = (row['Estado'] || row['status'] || 'operativa').toString().trim().toLowerCase();
+        const lastMaintenance = (row['Último Mantenimiento'] || row['lastMaintenance'] || '').toString().trim();
+
+        const validStatuses = ['operativa', 'mantenimiento', 'parada'];
+        const status = validStatuses.includes(statusRaw) ? statusRaw : 'operativa';
+
+        const existingIdx = state.machines.findIndex(m => m.id === id);
+
+        if (existingIdx !== -1) {
+          state.machines[existingIdx] = {
+            ...state.machines[existingIdx],
+            name: name || state.machines[existingIdx].name,
+            location: location || state.machines[existingIdx].location,
+            status,
+            lastMaintenance: lastMaintenance || state.machines[existingIdx].lastMaintenance
+          };
+          updated++;
+        } else {
+          const newMachine = {
+            id,
+            name: name || `Máquina ${id}`,
+            location: location || 'Sin ubicación',
+            status,
+            lastMaintenance: lastMaintenance || new Date().toISOString().split('T')[0],
+            image: imagesList[state.machines.length % imagesList.length]
+          };
+          state.machines.push(newMachine);
+          added++;
+        }
+      });
+
+      saveToLocalStorage();
+      renderAll();
+      updateRecentActivity();
+
+      const msg = `Importación completa: ${added} nuevas, ${updated} actualizadas.`;
+      addActivityLog(msg, 'success');
+      showScanToast(msg, 'success');
+    } catch (err) {
+      console.error('Error al importar Excel:', err);
+      showScanToast('Error al leer el archivo. Verificá que sea un .xlsx válido.', 'danger');
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function handleFileImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (!['xlsx', 'xls'].includes(ext)) {
+    showScanToast('Formato no válido. Solo se aceptan archivos .xlsx o .xls.', 'warning');
+    return;
+  }
+
+  importMachinesExcel(file);
+  e.target.value = '';
+}
 
 // =============================================
 // QR FUNCTIONALITY
