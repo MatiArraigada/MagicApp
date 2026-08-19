@@ -21,6 +21,17 @@
 
 <body>
 
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <img src="images/logo.png" alt="MAGIC" class="loading-logo"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="loading-logo-fallback" style="display:none;">MG</div>
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Conectando al servidor...</p>
+    </div>
+  </div>
+
   <!-- Sidebar Navigation -->
   <aside class="sidebar">
     <div class="logo-container">

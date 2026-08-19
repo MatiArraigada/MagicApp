@@ -89,6 +89,13 @@ async function init() {
 
   await loadDataFromServer();
 
+  // Hide loading screen
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => loadingScreen.remove(), 400);
+  }
+
   // Set Theme
   if (storedTheme === 'light') {
     document.body.classList.add('light-theme');
