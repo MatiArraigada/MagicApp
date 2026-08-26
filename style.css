@@ -1463,6 +1463,14 @@ body {
     justify-content: center;
   }
 
+  .step-actions {
+    flex: 1;
+  }
+
+  .step-actions .btn {
+    flex: 1;
+  }
+
   .form-group {
     margin-bottom: 0.85rem;
   }
