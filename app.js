@@ -1536,9 +1536,8 @@ function openQRScannerModal() {
     return;
   }
 
-  // Camera available — show activate button
-  document.getElementById('scanner-camera-btn').style.display = 'inline-flex';
-  document.getElementById('scanner-status-msg').textContent = 'Presioná "Activar Cámara" para escanear, o ingresá el ID manualmente.';
+  // Camera available — start directly
+  startCameraScanner();
 }
 
 function startCameraScanner() {
