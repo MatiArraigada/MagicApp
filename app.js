@@ -1489,8 +1489,12 @@ function openScanResultModal(machineId) {
     </div>
   `;
 
+  const isStopped = machine.status === 'parada';
   const footerHTML = `
     <button class="btn btn-secondary" onclick="closeScanResultModal(); openMachineModal('${machineId}')">✏️ Editar Ficha</button>
+    <button class="btn ${isStopped ? 'btn-success' : 'btn-danger'}" onclick="closeScanResultModal(); toggleMachineStopped('${machineId}')">
+      ${isStopped ? '✅ Reactivar' : '⛔ Marcar Parada'}
+    </button>
     <button class="btn btn-primary" onclick="closeScanResultModal(); generateQuickOrder('${machineId}')">➕ Nueva Orden</button>
   `;
 
