@@ -717,7 +717,7 @@ function renderMachines() {
             QR
           </button>
           <button class="btn btn-primary" onclick="generateQuickOrder('${m.id}')">Programar Manto</button>
-          <button class="btn ${m.status === 'parada' ? 'btn-success' : 'btn-danger'}" onclick="toggleMachineStopped('${m.id}')">${m.status === 'parada' ? 'Reactivar' : 'Marcar Parada'}</button>
+          <button class="btn ${m.status === 'parada' ? 'btn-success' : 'btn-danger'}" onclick="toggleMachineStopped('${m.id}')">${m.status === 'parada' ? 'Reactivar' : 'Apagar'}</button>
         </div>
       </div>
     `;
@@ -1560,7 +1560,7 @@ function openScanResultModal(machineId) {
   const footerHTML = `
     <button class="btn btn-secondary" onclick="closeScanResultModal(); openMachineModal('${machineId}')">✏️ Editar Ficha</button>
     <button class="btn ${isStopped ? 'btn-success' : 'btn-danger'}" onclick="closeScanResultModal(); toggleMachineStopped('${machineId}')">
-      ${isStopped ? '✅ Reactivar' : '⛔ Marcar Parada'}
+      ${isStopped ? '✅ Reactivar' : '⛔ Apagar'}
     </button>
     <button class="btn btn-primary" onclick="closeScanResultModal(); generateQuickOrder('${machineId}')">➕ Nueva Orden</button>
   `;
