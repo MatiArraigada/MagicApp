@@ -8,3 +8,9 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: SUPABASE_URL
+        value: https://nrswghbpavykirkhfzeg.supabase.co
+        sync: false
+      - key: SUPABASE_KEY
+        value: your-supabase-key
+        sync: false

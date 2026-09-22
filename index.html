@@ -590,6 +590,30 @@
     </div>
   </div>
 
+  <!-- MODAL: Motivo de Parada -->
+  <div class="modal-overlay" id="stop-reason-overlay">
+    <div class="modal-content stop-reason-modal" id="stop-reason-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">⛔ Marcar Parada</h3>
+        <button class="modal-close-btn" id="stop-reason-close" aria-label="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="stop-reason-input">Motivo de la parada</label>
+        <textarea id="stop-reason-input" class="form-input" rows="3"
+          placeholder="Ej: Falla de motor, sin repuestos, incidencia eléctrica..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="stop-reason-cancel">Cancelar</button>
+        <button class="btn btn-danger" id="stop-reason-confirm">Confirmar Parada</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: Escáner QR por Cámara -->
   <div class="modal-overlay" id="qr-scanner-overlay">
     <div class="modal-content qr-scanner-modal" id="qr-scanner-modal">

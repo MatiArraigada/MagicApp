@@ -833,13 +833,14 @@ body {
 }
 
 .machine-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   padding: 1rem 1.5rem 1.5rem;
 }
 
 .machine-actions button {
-  flex-grow: 1;
+  min-width: 0;
 }
 
 /* Orders List View / Board View */
@@ -1166,6 +1167,14 @@ body {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
+.form-input[aria-invalid="true"], .form-textarea[aria-invalid="true"], .form-select[aria-invalid="true"] {
+  border-color: var(--status-danger);
+}
+
+.form-input[aria-invalid="true"]:focus, .form-textarea[aria-invalid="true"]:focus, .form-select[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
 .form-textarea {
   min-height: 100px;
   resize: vertical;
@@ -1363,12 +1372,10 @@ body {
 
   .machine-actions {
     padding: 0.5rem 0.85rem 0.85rem;
-    flex-wrap: wrap;
     gap: 0.5rem;
   }
 
   .machine-actions .btn {
-    flex: 1;
     min-width: 0;
     padding: 0.45rem 0.4rem;
     font-size: 0.72rem;
@@ -1556,6 +1563,10 @@ body {
   .item-subtext {
     font-size: 0.7rem;
   }
+
+  .machine-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Mobile Small (≤480px) */
@@ -1621,6 +1632,7 @@ body {
 
   .machine-actions {
     padding: 0.4rem 0.65rem 0.65rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .machine-actions .btn {

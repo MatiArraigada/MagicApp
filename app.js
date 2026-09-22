@@ -155,6 +155,26 @@ function setupEventListeners() {
     });
   });
 
+  // Stop Reason Modal Buttons
+  const stopReasonConfirm = document.getElementById('stop-reason-confirm');
+  if (stopReasonConfirm) {
+    stopReasonConfirm.addEventListener('click', confirmMachineStop);
+  }
+  const stopReasonCancel = document.getElementById('stop-reason-cancel');
+  if (stopReasonCancel) {
+    stopReasonCancel.addEventListener('click', cancelMachineStop);
+  }
+  const stopReasonClose = document.getElementById('stop-reason-close');
+  if (stopReasonClose) {
+    stopReasonClose.addEventListener('click', cancelMachineStop);
+  }
+  const stopReasonInput = document.getElementById('stop-reason-input');
+  if (stopReasonInput) {
+    stopReasonInput.addEventListener('input', () => {
+      stopReasonInput.removeAttribute('aria-invalid');
+    });
+  }
+
   document.querySelectorAll('.btn-cancel').forEach(btn => {
     btn.addEventListener('click', () => {
       closeAllModals();
@@ -603,7 +623,7 @@ function renderDashboard() {
         </div>
         <div class="item-details">
           <div class="item-title">${m.name} está DETENIDA</div>
-          <div class="item-subtext">Ubicación: ${m.location}</div>
+          <div class="item-subtext">Ubicación: ${m.location}${m.stopReason ? ' | Motivo: ' + m.stopReason : ''}</div>
         </div>
         <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" onclick="switchTab('orders'); openOrderModal();">Generar Orden</button>
       </div>
@@ -679,6 +699,11 @@ function renderMachines() {
               <span class="date-val">${m.lastMaintenance}</span>
             </div>
           </div>
+          ${m.status === 'parada' && m.stopReason ? `
+          <div class="machine-meta-row" style="margin-top: 0.5rem">
+            <span class="machine-meta-lbl">Motivo Parada:</span>
+            <span class="machine-meta-val">${m.stopReason}</span>
+          </div>` : ''}
         </div>
         <div class="machine-actions">
           <button class="btn btn-secondary" onclick="openMachineModal('${m.id}')">Editar Ficha</button>
@@ -813,20 +838,52 @@ function confirmDeleteMachine() {
   }
 }
 
+let pendingStopMachineId = null;
+
 function toggleMachineStopped(machineId) {
   const idx = state.machines.findIndex(m => m.id === machineId);
   if (idx === -1) return;
   const m = state.machines[idx];
   if (m.status === 'parada') {
     m.status = 'operativa';
+    m.stopReason = '';
     addActivityLog(`Se reactivó la máquina ${m.name} (${m.id})`, 'success');
+    saveToLocalStorage();
+    renderAll();
+    updateRecentActivity();
   } else {
-    m.status = 'parada';
-    addActivityLog(`Se marcó como parada la máquina ${m.name} (${m.id})`, 'danger');
+    pendingStopMachineId = machineId;
+    const reasonInput = document.getElementById('stop-reason-input');
+    reasonInput.value = m.stopReason || '';
+    reasonInput.removeAttribute('aria-invalid');
+    document.getElementById('stop-reason-overlay').classList.add('active');
+    setTimeout(() => reasonInput.focus(), 50);
   }
+}
+
+function confirmMachineStop() {
+  if (!pendingStopMachineId) return;
+  const idx = state.machines.findIndex(m => m.id === pendingStopMachineId);
+  if (idx === -1) return;
+  const m = state.machines[idx];
+  const reason = document.getElementById('stop-reason-input').value.trim();
+  if (!reason) {
+    document.getElementById('stop-reason-input').setAttribute('aria-invalid', 'true');
+    document.getElementById('stop-reason-input').focus();
+    return;
+  }
+  m.status = 'parada';
+  m.stopReason = reason;
+  addActivityLog(`Se marcó como parada la máquina ${m.name} (${m.id})${reason ? ': ' + reason : ''}`, 'danger');
   saveToLocalStorage();
   renderAll();
   updateRecentActivity();
+  cancelMachineStop();
+}
+
+function cancelMachineStop() {
+  pendingStopMachineId = null;
+  document.getElementById('stop-reason-overlay').classList.remove('active');
 }
 
 function handleMachineFormSubmit(e) {
@@ -1481,6 +1538,11 @@ function openScanResultModal(machineId) {
         <span class="scan-detail-lbl">🔧 Último Manto</span>
         <span class="scan-detail-val">${machine.lastMaintenance || 'N/A'}</span>
       </div>
+      ${machine.status === 'parada' && machine.stopReason ? `
+      <div class="scan-detail-item">
+        <span class="scan-detail-lbl">⛔ Motivo Parada</span>
+        <span class="scan-detail-val">${machine.stopReason}</span>
+      </div>` : ''}
     </div>
 
     <div class="scan-orders-section">
