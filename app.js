@@ -628,7 +628,7 @@ function renderDashboard() {
         </div>
         <div class="item-details">
           <div class="item-title">${m.name} está DETENIDA</div>
-          <div class="item-subtext">Ubicación: ${m.location}${m.stopReason ? ' | Motivo: ' + m.stopReason : ''}</div>
+          <div class="item-subtext">Ubicación: ${m.location}${m.stopreason ? ' | Motivo: ' + m.stopreason : ''}</div>
         </div>
         <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" onclick="switchTab('orders'); openOrderModal();">Generar Orden</button>
       </div>
@@ -704,10 +704,10 @@ function renderMachines() {
               <span class="date-val">${m.lastMaintenance}</span>
             </div>
           </div>
-          ${m.status === 'parada' && m.stopReason ? `
+          ${m.status === 'parada' && m.stopreason ? `
           <div class="machine-meta-row" style="margin-top: 0.5rem">
             <span class="machine-meta-lbl">Motivo Parada:</span>
-            <span class="machine-meta-val">${m.stopReason}</span>
+            <span class="machine-meta-val">${m.stopreason}</span>
           </div>` : ''}
         </div>
         <div class="machine-actions">
@@ -851,7 +851,7 @@ function toggleMachineStopped(machineId) {
   const m = state.machines[idx];
   if (m.status === 'parada') {
     m.status = 'operativa';
-    m.stopReason = '';
+    m.stopreason = '';
     addActivityLog(`Se reactivó la máquina ${m.name} (${m.id})`, 'success');
     saveToLocalStorage();
     renderAll();
@@ -859,7 +859,7 @@ function toggleMachineStopped(machineId) {
   } else {
     pendingStopMachineId = machineId;
     const reasonInput = document.getElementById('stop-reason-input');
-    reasonInput.value = m.stopReason || '';
+    reasonInput.value = m.stopreason || '';
     reasonInput.removeAttribute('aria-invalid');
     document.getElementById('stop-reason-overlay').classList.add('active');
     setTimeout(() => reasonInput.focus(), 50);
@@ -878,7 +878,7 @@ function confirmMachineStop() {
     return;
   }
   m.status = 'parada';
-  m.stopReason = reason;
+  m.stopreason = reason;
   addActivityLog(`Se marcó como parada la máquina ${m.name} (${m.id})${reason ? ': ' + reason : ''}`, 'danger');
   saveToLocalStorage();
   renderAll();
@@ -1543,10 +1543,10 @@ function openScanResultModal(machineId) {
         <span class="scan-detail-lbl">🔧 Último Manto</span>
         <span class="scan-detail-val">${machine.lastMaintenance || 'N/A'}</span>
       </div>
-      ${machine.status === 'parada' && machine.stopReason ? `
+      ${machine.status === 'parada' && machine.stopreason ? `
       <div class="scan-detail-item">
         <span class="scan-detail-lbl">⛔ Motivo Parada</span>
-        <span class="scan-detail-val">${machine.stopReason}</span>
+        <span class="scan-detail-val">${machine.stopreason}</span>
       </div>` : ''}
     </div>
 
