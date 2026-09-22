@@ -18,6 +18,7 @@ let state = {
 // API Sync
 const API_URL = '/api/data';
 let lastSyncHash = '';
+let saveInFlight = false;
 
 async function loadDataFromServer() {
   try {
@@ -50,7 +51,8 @@ async function saveDataToServer() {
   
   // Skip if no changes
   if (newHash === lastSyncHash) return;
-  
+
+  saveInFlight = true;
   try {
     await fetch(API_URL, {
       method: 'POST',
@@ -60,6 +62,8 @@ async function saveDataToServer() {
     lastSyncHash = newHash;
   } catch (e) {
     console.warn('Failed to sync with server');
+  } finally {
+    saveInFlight = false;
   }
 }
 
@@ -72,6 +76,7 @@ function startAutoRefresh() {
         const data = await res.json();
         const serverHash = JSON.stringify({ m: data.machines, o: data.orders });
         if (serverHash !== lastSyncHash) {
+          if (saveInFlight) return;
           state.machines = data.machines || [];
           state.orders = data.orders || [];
           lastSyncHash = serverHash;
